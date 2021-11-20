@@ -69,23 +69,31 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="0">Console Log</button>
+      <button id="1">Console Error</button>
+      <button id="2">Console Count</button>
+      <button id="3">Console Warn</button>
+      <button id="4">Console Assert</button>
+      <button id="5">Console Clear</button>
+      <button id="6">Console Dir</button>
+      <button id="7">Console dirxml</button>
+      <button id="8">Console Group Start</button>
+      <button id="9">Console Group End</button>
+      <button id="10">Console Table</button>
+      <button id="11">Start Timer</button>
+      <button id="12">End Timer</button>
+      <button id="13">Console Trace</button>
+      <button id="14">Trigger a Global Error</button>
     </section>
   </main>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "c8f37f07947b4bceafdc1622cfe48afc"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
 
   <script>
     let form = document.querySelector('form');
@@ -100,8 +108,67 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
+
     // Start your code here
     // You may move this JS to another file if you wish
+
+    TrackJS.track('Testing TrackJS!');
+                        
+
+
+    let label = "a b c d"
+
+    errorBtns[0].onclick = function () {  console.log("Console Log Demo");  }
+    errorBtns[1].onclick = function () {  console.error("Console Error Demo");  }
+    errorBtns[2].onclick = function () {  console.count();  }
+    errorBtns[3].onclick = function () {  console.warn("Console Warn Demo");  }
+    errorBtns[4].onclick = function () {  console.assert(0 > 1);  }
+    errorBtns[5].onclick = function () {  console.clear();  }
+    errorBtns[6].onclick = function () {  console.dir(document.head); }
+    errorBtns[7].onclick = function () {  console.dirxml(document); }
+    errorBtns[8].onclick = function () {  console.group(label); }
+    errorBtns[9].onclick = function () {  console.groupEnd(label) ;  }
+    errorBtns[10].onclick = function () { console.table([1,2,3]); }
+    errorBtns[11].onclick = function () { console.time(); }
+    errorBtns[12].onclick = function () { console.timeEnd();  }
+    errorBtns[13].onclick = function () { console.trace();  }
+
+
+    try {
+      throw new Error("all is NOT good");
+    }
+
+    catch (error) {
+      console.log('Error caught: ')
+    }
+
+    finally {
+      console.log("Try, Catch, and Finally.");
+    }
+
+    class myError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+      }
+    }
+
+    let err = new myError("My Error.");
+    try {
+      throw err;
+    }
+    catch (err){
+      console.log("Custom error caught");
+
+    }
+
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      console.log("Global Error");
+    }
+    errorBtns[14].onclick = function () {
+      throw  "error";
+    };
+
   </script>
 </body>
 
